@@ -3,7 +3,10 @@ package com.example.basic
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -26,25 +29,38 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Greeting("Android")
+fun MyApp(
+    modifier: Modifier = Modifier,
+    names: List<String> = listOf("World", "Compose")
+) {
+    Column(modifier = modifier.padding(vertical = 4.dp)) {
+        for (name in names) {
+            Box(modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
+                Greeting(name = name)
+            }
+        }
     }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Surface(color = MaterialTheme.colorScheme.primary) {
-        Text(
-            text = "Hello $name!", modifier = modifier.padding(24.dp)
-        )
+        Column(
+            modifier = modifier
+                .padding(24.dp)
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = "Hello,",
+            )
+            Text(
+                text = name,
+            )
+        }
     }
 }
 
-@Preview(showBackground = true, name = "Text Preview")
+@Preview(showBackground = true, name = "Text Preview", widthDp = 320)
 @Composable
 fun GreetingPreview() {
     BasicTheme {
